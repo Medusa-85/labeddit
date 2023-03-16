@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import { PostBusiness } from "../business/PostBusiness";
 import { LikeOrDislikeInputDTO } from "../dtos/likeDislikeDTO";
 import { CreatePostInputDTO, GetPostInputDTO } from "../dtos/postDTO";
-import { BadRequestError } from "../errors/BadRequestError";
-
 export class PostController {
     constructor(
         private postBusiness: PostBusiness
