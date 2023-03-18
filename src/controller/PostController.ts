@@ -32,6 +32,7 @@ export class PostController {
                 content: req.body.content
             }
             const output = await this.postBusiness.createPost(input)
+            console.log(input)
 
             res.status(201).send(output)
 
