@@ -1,9 +1,11 @@
 import { PostDatabase } from "../database/PostDatabase";
 import { LikeOrDislikeInputDTO } from "../dtos/likeDislikeDTO";
 import { CreatePostInputDTO, GetPostInputDTO, GetPostOutputDTO } from "../dtos/postDTO";
+import { ReplyPostInputDTO } from "../dtos/replyPostDTO";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { Post } from "../models/Post";
+import { Reply } from "../models/Reply";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
 import { LikesDislikesDB, PostDB, PostWithCreatorDB, POST_LIKE_DISLIKE } from "../types";
@@ -153,6 +155,45 @@ export class PostBusiness {
         const updatedPost = post.toDBModel()
 
         await this.postDatabase.update(idToLikeOrDislike, updatedPost)
+
+    }
+    public replyPost = async (input: ReplyPostInputDTO) => {
+        const { idToReply, token, reply } = input
+
+        if(!token) {
+            throw new BadRequestError("'token' precisa existir")
+        }
+        const payload = this.tokenManager.getPayload(token)
+        if(payload === null) {
+            throw new BadRequestError("'token' inválido")
+        }
+        if(typeof reply !== "string") {
+            throw new BadRequestError("'reply' precisa ser string")
+        }
+        const postWithCreatorDB = await this.postDatabase.findPostWithCreatorById(idToReply)
+        if(!postWithCreatorDB) {
+            throw new NotFoundError("'id' não encontrado")
+        }
+
+        const id = this.idGenerator.generate()
+        const postId = postWithCreatorDB.id
+        const creatorId = payload.id
+        const creatorName = payload.name
+        const createdAt = new Date().toISOString()
+
+        const newReply = new Reply (
+            id,
+            postId,
+            creatorId,
+            0,
+            0,
+            createdAt,
+            reply,
+            creatorName
+        )
+        const replyDB = newReply.ReplyToDBModel()
+
+        await this.postDatabase.insertReply(replyDB)
 
     }
     

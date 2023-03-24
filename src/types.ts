@@ -28,6 +28,28 @@ export interface PostDB {
     updated_at: string
 }
 
+export interface ReplyDB {
+    id: string,
+    post_id: string,
+    creator_id: string,
+    likes: number,
+    dislikes: number,
+    created_at: string,
+    reply: string
+}
+
+export interface ReplyModel {
+    id: string,
+    reply: string,
+    likes: number,
+    dislikes: number,
+    createdAt: string,
+    creator: {
+        id: string,
+        name: string
+    }
+}
+
 export interface PostModel {
     id: string,
     content: string,
@@ -42,6 +64,10 @@ export interface PostModel {
 }
 
 export interface PostWithCreatorDB extends PostDB {
+    creator_name: string
+}
+
+export interface ReplyWithCreatorDB extends ReplyDB {
     creator_name: string
 }
 

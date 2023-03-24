@@ -1,4 +1,4 @@
--- Active: 1678462263454@@127.0.0.1@3306
+-- Active: 1679692231338@@127.0.0.1@3306
 
 CREATE TABLE users (
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
@@ -58,3 +58,4 @@ VALUES
 	("u003", "Astrodev", "astrodev@email.com", "astrodev99", "ADMIN");
 SELECT*FROM users;
 SELECT*FROM reply_posts;
+SELECT*FROM posts;
