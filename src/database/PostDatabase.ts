@@ -1,10 +1,11 @@
 import { Post } from "../models/Post";
-import { LikesDislikesDB, PostDB, PostWithCreatorDB, POST_LIKE_DISLIKE } from "../types";
+import { LikesDislikesDB, PostDB, PostWithCreatorDB, POST_LIKE_DISLIKE, ReplyDB } from "../types";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class PostDatabase extends BaseDatabase {
     public static TABLE_POSTS = "posts"
     public static TABLE_LIKES_DISLIKES = "likes_dislikes"
+    public static TABLE_REPLY_POSTS = "reply_posts"
 
     public getPostsWithCreators = async (): Promise<PostWithCreatorDB[]> => {
         const result: PostWithCreatorDB[] = await BaseDatabase
@@ -99,5 +100,10 @@ export class PostDatabase extends BaseDatabase {
         .connection(PostDatabase.TABLE_POSTS)
         .update(postDB)
         .where({ id: idToEdit})
+    }
+    public insertReply = async (replyDB: ReplyDB): Promise<void> => {
+        await BaseDatabase
+        .connection(PostDatabase.TABLE_REPLY_POSTS)
+        .insert(replyDB)
     }
 }
