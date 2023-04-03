@@ -9,6 +9,10 @@ export class PostDTO {
 export interface GetPostInputDTO {
     token: string | undefined
 }
+export interface GetPostByIdInputDTO {
+    postId: string,
+    token: string | undefined
+}
 
 export type GetPostOutputDTO = PostModel[]
 
