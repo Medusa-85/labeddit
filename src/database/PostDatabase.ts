@@ -31,6 +31,15 @@ export class PostDatabase extends BaseDatabase {
         .insert(postDB)
     }
 
+    public findById = async (id: string): Promise<PostWithCreatorDB | undefined> => {
+        const result: PostDB[] = await BaseDatabase
+        .connection(PostDatabase.TABLE_POSTS)
+        .select()
+        .where({id})
+
+        return result[0]
+    }
+
     public findPostWithCreatorById = async (postId: string): Promise<PostWithCreatorDB | undefined> => {
         const result: PostWithCreatorDB[] = await BaseDatabase
         .connection(PostDatabase.TABLE_POSTS)
@@ -101,9 +110,28 @@ export class PostDatabase extends BaseDatabase {
         .update(postDB)
         .where({ id: idToEdit})
     }
-    public insertReply = async (replyDB: ReplyDB): Promise<void> => {
-        await BaseDatabase
-        .connection(PostDatabase.TABLE_REPLY_POSTS)
-        .insert(replyDB)
+    // public insertReply = async (replyDB: ReplyDB): Promise<void> => {
+    //     await BaseDatabase
+    //     .connection(PostDatabase.TABLE_REPLY_POSTS)
+    //     .insert(replyDB)
+    // }
+
+    public getPostsWithCreatorsById = async (postId: string): Promise<PostWithCreatorDB[]> => {
+        const result: PostWithCreatorDB[] = await BaseDatabase
+        .connection(PostDatabase.TABLE_POSTS)
+        .select(
+            "posts.id",
+            "posts.creator_id",
+            "posts.content",
+            "posts.likes",
+            "posts.dislikes",
+            "posts.created_at",
+            "posts.updated_at",
+            "users.name as creator_name"
+        )
+        .join("users", "posts.creator_id", "=", "users.id")
+        .where("posts.id", postId)
+
+        return result
     }
 }

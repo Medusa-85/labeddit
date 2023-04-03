@@ -90,6 +90,7 @@ export class Post {
     public toDBModel(): PostDB{
         return {
             id: this.id,
+            creator_name: this.creatorName,
             content: this.content,
             creator_id: this.creatorId,
             likes: this.likes,

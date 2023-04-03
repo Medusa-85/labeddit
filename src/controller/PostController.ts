@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
-import { knex } from 'knex'
 import { PostBusiness } from "../business/PostBusiness";
 import { LikeOrDislikeInputDTO } from "../dtos/likeDislikeDTO";
-import { CreatePostInputDTO, GetPostInputDTO } from "../dtos/postDTO";
+import { CreatePostInputDTO, GetPostByIdInputDTO, GetPostInputDTO } from "../dtos/postDTO";
 import { ReplyPostInputDTO } from "../dtos/replyPostDTO";
 
 
@@ -17,6 +16,25 @@ export class PostController {
             }
             const output = await this.postBusiness.getPost(input)
 
+            res.status(201).send(output)
+
+        } catch (error) {
+            console.log(error)
+    
+            if(error instanceof Error) {
+                res.status(500).send(error.message)
+            } else {
+                res.status(500).send("Erro inesperado")
+            }
+        }
+    }
+    public getPostById = async (req: Request, res: Response) => {
+        try{
+            const input: GetPostByIdInputDTO = {
+                postId: req.params.id,
+                token: req.headers.authorization
+            }
+            const output = await this.postBusiness.getPostById(input)
             res.status(201).send(output)
 
         } catch (error) {
@@ -51,8 +69,6 @@ export class PostController {
         }
     }
     public likeOrDislikePost = async (req: Request, res: Response) => {
-        console.log(`likeOrDislikePost: Request ${req.params}, Response ${res}`)
-        console.dir(req.params)
         try{
             const input: LikeOrDislikeInputDTO = {
                 idToLikeOrDislike: req.params.id,
@@ -74,27 +90,27 @@ export class PostController {
             } 
         }
     }
-    public replyPost = async (req: Request, res: Response) => {
+    // public replyPost = async (req: Request, res: Response) => {
 
-        try{
-            const input: ReplyPostInputDTO = {
-                idToReply: req.params.id,
-                token: req.headers.authorization,
-                reply: req.body.reply
-            }
-            const output = await this.postBusiness.replyPost(input)
+    //     try{
+    //         const input: ReplyPostInputDTO = {
+    //             idToReply: req.params.id,
+    //             token: req.headers.authorization,
+    //             reply: req.body.reply
+    //         }
+    //         const output = await this.postBusiness.replyPost(input)
             
-            res.status(201).send(output)
+    //         res.status(201).send(output)
 
-        } catch (error) {
-            console.log(error)
+    //     } catch (error) {
+    //         console.log(error)
     
-            if(error instanceof Error) {
-                res.status(500).send(error.message)
-            } else {
-                res.status(500).send("Erro inesperado")
-            }
-        }
-    }
+    //         if(error instanceof Error) {
+    //             res.status(500).send(error.message)
+    //         } else {
+    //             res.status(500).send("Erro inesperado")
+    //         }
+    //     }
+    // }
 
 }

@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import { userRouter } from './router/userRouter'
 import { postRouter } from './router/postRouter'
+import { replyRouter } from './router/replyRouter'
 
 dotenv.config()
 
@@ -16,3 +17,4 @@ app.listen(Number(process.env.PORT), () => {
 
 app.use("/users", userRouter)
 app.use("/posts", postRouter)
+app.use("/reply", replyRouter)
