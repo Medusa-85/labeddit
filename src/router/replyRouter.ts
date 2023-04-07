@@ -20,3 +20,4 @@ const replyController = new ReplyController (
 
 replyRouter.post("/:id", replyController.createReply)
 replyRouter.get("/:id", replyController.getReplies)
+replyRouter.put("/:id/like", replyController.likeOrDislikeReply)

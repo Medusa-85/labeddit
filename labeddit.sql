@@ -59,3 +59,14 @@ VALUES
 SELECT*FROM users;
 SELECT*FROM reply_posts;
 SELECT*FROM posts;
+CREATE TABLE reply_likes_dislikes (
+    user_id TEXT NOT NULL,
+    reply_id TEXT NOT NULL,
+    like INTEGER DEFAULT(0),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (reply_id) REFERENCES reply_posts(id) 
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);

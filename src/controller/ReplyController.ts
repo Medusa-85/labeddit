@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { ReplyBusiness } from "../business/ReplyBusiness";
+import { LikeOrDislikeInputDTO } from "../dtos/likeDislikeDTO";
 import { GetRepliesInputDTO } from "../dtos/replyPostDTO";
 
 export class ReplyController {
@@ -33,7 +34,6 @@ export class ReplyController {
                 token: req.headers.authorization
             }
             const output = await this.replyBusiness.getReplies(input)
-            console.log(`output da controller: ${output}`)
             res.status(200).send(output)
 
         } catch (error) {
@@ -45,5 +45,28 @@ export class ReplyController {
                 res.status(500).send("Erro inesperado")
             }
         }
+    }
+    public likeOrDislikeReply = async (req: Request, res: Response) => {
+        try{
+            const input: LikeOrDislikeInputDTO = {
+                idToLikeOrDislike: req.params.id,
+                token: req.headers.authorization,
+                like: req.body.like
+            }
+
+            await this.replyBusiness.likeOrDislikePost(input)
+
+            res.status(200).end()
+
+        } catch(error) {
+            console.log(error)
+    
+            if(error instanceof Error) {
+                res.status(500).send(error.message)
+            } else {
+                res.status(500).send("Erro inesperado")
+            } 
+        }
+
     }
 }
