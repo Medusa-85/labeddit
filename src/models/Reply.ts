@@ -35,11 +35,23 @@ export class Reply {
     public setLikes(value: number) {
         this.likes = value;
     }
+    public addLike() {
+        this.likes += 1
+    }
+    public removeLike() {
+        this.likes -= 1
+    }
     public getDislikes(): number {
         return this.dislikes;
     }
     public setDislikes(value: number) {
         this.dislikes = value;
+    }
+    public addDislike() {
+        this.dislikes += 1
+    }
+    public removeDislike(){
+        this.dislikes -= 1
     }
     public getCreated_at(): string {
         return this.createdAt;

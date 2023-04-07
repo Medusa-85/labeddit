@@ -110,11 +110,6 @@ export class PostDatabase extends BaseDatabase {
         .update(postDB)
         .where({ id: idToEdit})
     }
-    // public insertReply = async (replyDB: ReplyDB): Promise<void> => {
-    //     await BaseDatabase
-    //     .connection(PostDatabase.TABLE_REPLY_POSTS)
-    //     .insert(replyDB)
-    // }
 
     public getPostsWithCreatorsById = async (postId: string): Promise<PostWithCreatorDB[]> => {
         const result: PostWithCreatorDB[] = await BaseDatabase

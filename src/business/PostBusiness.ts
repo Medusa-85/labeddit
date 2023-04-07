@@ -80,41 +80,6 @@ export class PostBusiness {
         return output
     }
 
-    // public getPostById = async (input: GetPostByIdInputDTO): Promise<void> => {
-    //     const {postId, token} = input
-
-    //     if(!token) {
-    //         throw new BadRequestError("'token' precisa existir")
-    //     }
-    //     const payload = this.tokenManager.getPayload(token)
-    //     if(payload === null){
-    //         throw new BadRequestError("'token' inválido")
-    //     }
-    //     if(typeof postId !== "string"){
-    //         throw new BadRequestError("'postId' precisa ser string")
-    //     }
-
-    //     const findPostById = await this.postDatabase.findPostWithCreatorById(postId)
-
-    //     if(!findPostById) {
-    //         throw new NotFoundError("'id' não encontrado")
-    //     }
-    //     console.log(`postId: ${postId}`)
-    //     console.log(`findPostById: ${findPostById.content}`)
-
-    //     const postById = new Post (
-    //         findPostById.id,
-    //         findPostById.creator_id,
-    //         findPostById.content,
-    //         findPostById.likes,
-    //         findPostById.dislikes,
-    //         findPostById.created_at,
-    //         findPostById.updated_at,
-    //         findPostById.creator_name
-    //     )
-    //     return postById
-    // }
-
     public createPost = async (input: CreatePostInputDTO) => {
         const {token, content} = input
 
@@ -223,46 +188,6 @@ export class PostBusiness {
 
         await this.postDatabase.update(idToLikeOrDislike, updatedPost)
 
-    }
-    // public replyPost = async (input: ReplyPostInputDTO) => {
-    //     const { idToReply, token, reply } = input
-
-    //     if(!token) {
-    //         throw new BadRequestError("'token' precisa existir")
-    //     }
-    //     const payload = this.tokenManager.getPayload(token)
-    //     if(payload === null) {
-    //         throw new BadRequestError("'token' inválido")
-    //     }
-    //     if(typeof reply !== "string") {
-    //         throw new BadRequestError("'reply' precisa ser string")
-    //     }
-    //     const postWithCreatorDB = await this.postDatabase.findPostWithCreatorById(idToReply)
-    //     if(!postWithCreatorDB) {
-    //         throw new NotFoundError("'id' não encontrado")
-    //     }
-
-    //     const id = this.idGenerator.generate()
-    //     const postId = postWithCreatorDB.id
-    //     const creatorId = payload.id
-    //     const creatorName = payload.name
-    //     const createdAt = new Date().toISOString()
-
-    //     const newReply = new Reply (
-    //         id,
-    //         postId,
-    //         creatorId,
-    //         0,
-    //         0,
-    //         createdAt,
-    //         reply,
-    //         creatorName
-    //     )
-    //     const replyDB = newReply.ReplyToDBModel()
-
-    //     await this.postDatabase.insertReply(replyDB)
-
-    // }
-    
+    }  
 
 }
