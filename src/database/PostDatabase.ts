@@ -31,7 +31,7 @@ export class PostDatabase extends BaseDatabase {
         .insert(postDB)
     }
 
-    public findById = async (id: string): Promise<PostWithCreatorDB | undefined> => {
+    public findById = async (id: string): Promise<PostDB | undefined> => {
         const result: PostDB[] = await BaseDatabase
         .connection(PostDatabase.TABLE_POSTS)
         .select()

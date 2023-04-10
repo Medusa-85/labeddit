@@ -19,7 +19,6 @@ export interface UserDB{
 }
 
 export interface PostDB {
-    creator_name: string
     id: string,
     creator_id: string,
     content: string,
