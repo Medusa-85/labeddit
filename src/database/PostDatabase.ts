@@ -16,6 +16,7 @@ export class PostDatabase extends BaseDatabase {
             "posts.content",
             "posts.likes",
             "posts.dislikes",
+            "posts.replies",
             "posts.created_at",
             "posts.updated_at",
             "users.name as creator_name"
@@ -49,6 +50,7 @@ export class PostDatabase extends BaseDatabase {
             "posts.content",
             "posts.likes",
             "posts.dislikes",
+            "posts.replies",
             "posts.created_at",
             "posts.updated_at",
             "users.name"
@@ -120,6 +122,7 @@ export class PostDatabase extends BaseDatabase {
             "posts.content",
             "posts.likes",
             "posts.dislikes",
+            "posts.replies",
             "posts.created_at",
             "posts.updated_at",
             "users.name as creator_name"

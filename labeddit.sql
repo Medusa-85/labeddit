@@ -12,14 +12,16 @@ CREATE TABLE posts (
     id TEXT PRIMARY KEY NOT NULL,
     creator_id TEXT NOT NULL,
     content TEXT NOT NULL,
-    likes INTEGER DEFAULT(0),
-    dislikes INTEGER DEFAULT(0),
+    likes INTEGER DEFAULT(0) NOT NULL,
+    dislikes INTEGER DEFAULT(0) NOT NULL,
+    replies INTEGER DEFAULT(0) NOT NULL,
     created_at TEXT DEFAULT (DATETIME('now', 'localtime')) NOT NULL,
     updated_at TEXT DEFAULT (DATETIME('now', 'localtime')) NOT NULL,
     FOREIGN KEY (creator_id) REFERENCES users (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+DROP TABLE posts;
 CREATE TABLE likes_dislikes (
     user_id TEXT NOT NULL,
     post_id TEXT NOT NULL,
@@ -31,6 +33,7 @@ CREATE TABLE likes_dislikes (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
 CREATE TABLE reply_posts (
     id TEXT PRIMARY KEY NOT NULL,
     post_id TEXT NOT NULL,

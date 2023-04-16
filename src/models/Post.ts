@@ -1,12 +1,14 @@
 import { PostDB, PostModel } from "../types";
 
-export class Post {    
+export class Post {
+      
     constructor(
         private id: string,
         private creatorId: string,
         private content: string,
         private likes: number,
         private dislikes: number,
+        private replies: number,
         private createdAt: string,
         private updatedAt: string,
         private creatorName: string 
@@ -56,6 +58,15 @@ export class Post {
     public getCreatedAt(): string {
         return this.createdAt;
     }
+    public getReplies(): number {
+        return this.replies;
+    }
+    public setReplies(value: number) {
+        this.replies = value;
+    }
+    public addReplies() {
+        this.replies += 1
+    }  
     public setCreatedAt(value: string) {
         this.createdAt = value;
     }
@@ -78,6 +89,7 @@ export class Post {
             content: this.content,
             likes: this.likes,
             dislikes: this.dislikes,
+            replies: this.replies,
             createdAt: this.createdAt,
             updatedAt: this.updatedAt,
             creator: {
@@ -94,6 +106,7 @@ export class Post {
             creator_id: this.creatorId,
             likes: this.likes,
             dislikes: this.dislikes,
+            replies: this.replies,
             created_at: this.createdAt,
             updated_at: this.updatedAt
         }

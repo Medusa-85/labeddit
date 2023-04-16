@@ -36,6 +36,7 @@ export class PostBusiness {
                     postWithCreatorDB.content,
                     postWithCreatorDB.likes,
                     postWithCreatorDB.dislikes,
+                    postWithCreatorDB.replies,
                     postWithCreatorDB.created_at,
                     postWithCreatorDB.updated_at,
                     postWithCreatorDB.creator_name
@@ -68,6 +69,7 @@ export class PostBusiness {
                     postWithCreatorDB.content,
                     postWithCreatorDB.likes,
                     postWithCreatorDB.dislikes,
+                    postWithCreatorDB.replies,
                     postWithCreatorDB.created_at,
                     postWithCreatorDB.updated_at,
                     postWithCreatorDB.creator_name
@@ -101,11 +103,11 @@ export class PostBusiness {
         const updatedAt = new Date().toISOString()
         const creatorName = payload.name
 
-
         const post = new Post(
             id,
             creatorId,
             content,
+            0,
             0,
             0,
             createdAt,
@@ -156,6 +158,7 @@ export class PostBusiness {
             postWithCreatorDB.content,
             postWithCreatorDB.likes,
             postWithCreatorDB.dislikes,
+            postWithCreatorDB.replies,
             postWithCreatorDB.created_at,
             postWithCreatorDB.updated_at,
             postWithCreatorDB.creator_name,

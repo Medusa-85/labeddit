@@ -9,6 +9,7 @@ import { ReplyDatabase } from "../database/ReplyDatabase";
 import { ReplyLikesDislikesDB, ReplyWithCreatorDB, REPLY_LIKE_DISLIKE } from "../types";
 import { LikeOrDislikeInputDTO } from "../dtos/likeDislikeDTO";
 import { replyRouter } from "../router/replyRouter";
+import { Post } from "../models/Post";
 
 export class ReplyBusiness {
     constructor (
@@ -41,6 +42,26 @@ export class ReplyBusiness {
         const creatorId = payload.id
         const createdAt = new Date().toISOString()
         const creatorName = payload.name
+
+        const updatedPost = new Post (
+            postWithCreatorDB.id,
+            postWithCreatorDB.creator_id,
+            postWithCreatorDB.content,
+            postWithCreatorDB.likes,
+            postWithCreatorDB.dislikes,
+            postWithCreatorDB.replies,
+            postWithCreatorDB.created_at,
+            postWithCreatorDB.updated_at,
+            postWithCreatorDB.creator_name
+        )
+
+        updatedPost.addReplies()
+        const updatedPostDB = updatedPost.toDBModel()
+        await this.postDatabase.update(idToReply, updatedPostDB)
+        
+
+        console.log(updatedPost)
+
 
         const newReply = new Reply (
             id,

@@ -54,7 +54,6 @@ export class PostController {
                 content: req.body.content
             }
             const output = await this.postBusiness.createPost(input)
-            console.log(input)
 
             res.status(201).send(output)
 
@@ -90,27 +89,4 @@ export class PostController {
             } 
         }
     }
-    // public replyPost = async (req: Request, res: Response) => {
-
-    //     try{
-    //         const input: ReplyPostInputDTO = {
-    //             idToReply: req.params.id,
-    //             token: req.headers.authorization,
-    //             reply: req.body.reply
-    //         }
-    //         const output = await this.postBusiness.replyPost(input)
-            
-    //         res.status(201).send(output)
-
-    //     } catch (error) {
-    //         console.log(error)
-    
-    //         if(error instanceof Error) {
-    //             res.status(500).send(error.message)
-    //         } else {
-    //             res.status(500).send("Erro inesperado")
-    //         }
-    //     }
-    // }
-
 }
