@@ -1,11 +1,9 @@
 import { PostDatabase } from "../database/PostDatabase";
 import { LikeOrDislikeInputDTO } from "../dtos/likeDislikeDTO";
 import { CreatePostInputDTO, GetPostByIdInputDTO, GetPostInputDTO, GetPostOutputDTO } from "../dtos/postDTO";
-import { ReplyPostInputDTO } from "../dtos/replyPostDTO";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { Post } from "../models/Post";
-import { Reply } from "../models/Reply";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
 import { LikesDislikesDB, PostDB, PostWithCreatorDB, POST_LIKE_DISLIKE } from "../types";
@@ -164,7 +162,7 @@ export class PostBusiness {
             postWithCreatorDB.creator_name,
         )
 
-        if(verifyLikeDislike === POST_LIKE_DISLIKE.ALREAD_LIKED) {
+        if(verifyLikeDislike === POST_LIKE_DISLIKE.ALREADY_LIKED) {
             if(like) {
                 await this.postDatabase.removeLikeOrDislike(likeOrDislikeDB)
                 post.removeLike()
@@ -173,7 +171,7 @@ export class PostBusiness {
                 post.removeLike()
                 post.addDislike()
             }
-        } else if(verifyLikeDislike === POST_LIKE_DISLIKE.ALREAD_DISLIKED) {
+        } else if(verifyLikeDislike === POST_LIKE_DISLIKE.ALREADY_DISLIKED) {
             if(like) {
                 await this.postDatabase.updateLikeOrDislike(likeOrDislikeDB)
                 post.removeDislike()
