@@ -73,8 +73,8 @@ export class PostDatabase extends BaseDatabase {
 
             if(likeDislikeDB) {
                 return likeDislikeDB.like === 1
-                ? POST_LIKE_DISLIKE.ALREAD_LIKED
-                : POST_LIKE_DISLIKE.ALREAD_DISLIKED
+                ? POST_LIKE_DISLIKE.ALREADY_LIKED
+                : POST_LIKE_DISLIKE.ALREADY_DISLIKED
             } else {
                 return null
             }

@@ -57,8 +57,8 @@ export class ReplyDatabase extends BaseDatabase {
 
         if(likeDislikeDB) {
             return  likeDislikeDB.like === 1 
-            ? REPLY_LIKE_DISLIKE.ALREAD_LIKED
-            : REPLY_LIKE_DISLIKE.ALREAD_DISLIKED
+            ? REPLY_LIKE_DISLIKE.ALREADY_LIKED
+            : REPLY_LIKE_DISLIKE.ALREADY_DISLIKED
         } else {
             return null
         }

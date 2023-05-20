@@ -162,7 +162,7 @@ export class PostBusiness {
             postWithCreatorDB.creator_name,
         )
 
-        if(verifyLikeDislike === POST_LIKE_DISLIKE.ALREAD_LIKED) {
+        if(verifyLikeDislike === POST_LIKE_DISLIKE.ALREADY_LIKED) {
             if(like) {
                 await this.postDatabase.removeLikeOrDislike(likeOrDislikeDB)
                 post.removeLike()
@@ -171,7 +171,7 @@ export class PostBusiness {
                 post.removeLike()
                 post.addDislike()
             }
-        } else if(verifyLikeDislike === POST_LIKE_DISLIKE.ALREAD_DISLIKED) {
+        } else if(verifyLikeDislike === POST_LIKE_DISLIKE.ALREADY_DISLIKED) {
             if(like) {
                 await this.postDatabase.updateLikeOrDislike(likeOrDislikeDB)
                 post.removeDislike()

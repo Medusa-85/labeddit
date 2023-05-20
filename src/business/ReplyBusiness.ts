@@ -144,7 +144,7 @@ export class ReplyBusiness {
             replyWithCreatorDB.reply,
             replyWithCreatorDB.creator_name,
         )
-        if(verifyLikeDislike === REPLY_LIKE_DISLIKE.ALREAD_LIKED) {
+        if(verifyLikeDislike === REPLY_LIKE_DISLIKE.ALREADY_LIKED) {
             if(like) {
                 await this.replyDatabase.removeLikeOrDislike(replyLikeOrDislikeDB)
                 reply.removeLike()
@@ -153,7 +153,7 @@ export class ReplyBusiness {
                 reply.removeLike()
                 reply.addDislike()
             }
-        } else if(verifyLikeDislike === REPLY_LIKE_DISLIKE.ALREAD_DISLIKED) {
+        } else if(verifyLikeDislike === REPLY_LIKE_DISLIKE.ALREADY_DISLIKED) {
             if(like) {
                 await this.replyDatabase.updateLikeOrDislike(replyLikeOrDislikeDB)
                 reply.removeDislike()
