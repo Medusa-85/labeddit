@@ -1,11 +1,9 @@
 import { PostDatabase } from "../database/PostDatabase";
 import { LikeOrDislikeInputDTO } from "../dtos/likeDislikeDTO";
 import { CreatePostInputDTO, GetPostByIdInputDTO, GetPostInputDTO, GetPostOutputDTO } from "../dtos/postDTO";
-import { ReplyPostInputDTO } from "../dtos/replyPostDTO";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { Post } from "../models/Post";
-import { Reply } from "../models/Reply";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
 import { LikesDislikesDB, PostDB, PostWithCreatorDB, POST_LIKE_DISLIKE } from "../types";
