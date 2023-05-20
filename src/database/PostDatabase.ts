@@ -90,7 +90,7 @@ export class PostDatabase extends BaseDatabase {
         })
     }
 
-    public updateLikeOrDislike = async (likeOrDislikeDB: LikesDislikesDB) => {
+    public updateLikeOrDislike = async (likeOrDislikeDB: LikesDislikesDB): Promise<void> => {
         await BaseDatabase
         .connection(PostDatabase.TABLE_LIKES_DISLIKES)
         .update(likeOrDislikeDB)

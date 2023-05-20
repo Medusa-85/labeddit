@@ -1,4 +1,5 @@
 import { BaseDatabase } from "../../src/database/BaseDatabase"
+import { GetPostOutputDTO } from "../../src/dtos/postDTO"
 import { LikesDislikesDB, PostDB, PostWithCreatorDB, POST_LIKE_DISLIKE } from "../../src/types"
 
 const postsMock: PostDB[] = [
@@ -14,27 +15,47 @@ const postsMock: PostDB[] = [
     }
 ]
 
-const postWithCreatorMock: PostWithCreatorDB []= [
+const postWithCreatorMock: PostWithCreatorDB = {
+    id: "post-id-mock",
+    creator_id: "creator-id-mock",
+    content: "content-mock",
+    likes: 0,
+    dislikes: 0,
+    replies: 0,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    creator_name: "creator-name-mock"
+}
+
+export const getPostOutputMock: GetPostOutputDTO = [
     {
         id: "post-id-mock",
-        creator_id: "creator-id-mock",
         content: "content-mock",
         likes: 0,
         dislikes: 0,
         replies: 0,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        creator_name: "creator-name-mock"
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        creator: {
+            id: "creator-id-mock",
+            name: "creator-name-mock"}
     }
 ]
 
-const likeDislikeMock: LikesDislikesDB[] = [
-    {
+const postsWithCreatorMock: PostWithCreatorDB []= [postWithCreatorMock]
+
+const likeMock: LikesDislikesDB = {
     user_id: "user-id-mock",
-    post_id: "post-id-mock",
+    post_id: "post-id-like-mock",
+    like: 1
+    }
+
+const dislikeMock: LikesDislikesDB = {
+    user_id: "user-id-mock",
+    post_id: "post-id-dislike-mock",
     like: 0
     }
-]
+
 
 export class PostDatabaseMock extends BaseDatabase {
     public static TABLE_POSTS = "posts"
@@ -42,7 +63,7 @@ export class PostDatabaseMock extends BaseDatabase {
     public static TABLE_REPLY_POSTS = "reply_posts"
 
     public getPostsWithCreators = async (): Promise<PostWithCreatorDB[]> => {
-        return postWithCreatorMock
+        return postsWithCreatorMock
     }
 
     public insert = async (postDB: PostDB): Promise<void> => {
@@ -57,24 +78,16 @@ export class PostDatabaseMock extends BaseDatabase {
 
     public findPostWithCreatorById = async (postId: string): Promise<PostWithCreatorDB | undefined> => {
         if(postId) {
-            return postWithCreatorMock.filter(post => post.id === postId)[0]
+            return postsWithCreatorMock.filter(post => post.id === postId)[0]
         }
     }
 
     public findLikeDislike = async (likeOrDislikeDBToFind: LikesDislikesDB
         ): Promise<POST_LIKE_DISLIKE | null> => {
-            const [likeDislikeDB]: LikesDislikesDB[] = await BaseDatabase
-            .connection(PostDatabaseMock.TABLE_LIKES_DISLIKES)
-            .select()
-            .where({
-                user_id: likeOrDislikeDBToFind.user_id,
-                post_id: likeOrDislikeDBToFind.post_id
-            })
-
-            if(likeDislikeDB) {
-                return likeDislikeDB.like === 1
-                ? POST_LIKE_DISLIKE.ALREADY_LIKED
-                : POST_LIKE_DISLIKE.ALREADY_DISLIKED
+            if(likeOrDislikeDBToFind == likeMock) {
+                return POST_LIKE_DISLIKE.ALREADY_LIKED
+            } else if(likeOrDislikeDBToFind == dislikeMock) {
+                return POST_LIKE_DISLIKE.ALREADY_DISLIKED
             } else {
                 return null
             }
@@ -84,8 +97,8 @@ export class PostDatabaseMock extends BaseDatabase {
        
     }
 
-    public updateLikeOrDislike = async (likeOrDislikeDB: LikesDislikesDB) => {
-        return likeDislikeMock
+    public updateLikeOrDislike = async (likeOrDislikeDB: LikesDislikesDB): Promise<void> => {
+     
     }
     
     public likeOrDislikePost = async (likeOrDislike: LikesDislikesDB): Promise<void> => {
@@ -96,9 +109,7 @@ export class PostDatabaseMock extends BaseDatabase {
         
     }
 
-    public getPostsWithCreatorsById = async (postId: string): Promise<PostWithCreatorDB[] | undefined> => {
-        if(postId) {
-            return postWithCreatorMock.filter(post => post.id === postId)
-        }
+    public getPostsWithCreatorsById = async (postId: string): Promise<PostWithCreatorDB[]> => {
+        return postsWithCreatorMock.filter(post => post.id === postId)
     }
 }
