@@ -20,4 +20,14 @@ describe("getPostById", () => {
         const response = await postBusiness.getPostById(input)
         expect(response).toEqual(getPostOutputMock)
     })
+
+    test("Retorna 'Token inválido' caso o usuário não esteja logado", async () => {
+        const input: GetPostByIdInputDTO = {
+            postId: "post-id-mock",
+            token: "token-mock-inválido"
+        }
+
+        const response = await postBusiness.getPostById(input)
+        expect(response).toThrow("Token inválido")
+    })
 })
